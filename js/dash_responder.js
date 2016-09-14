@@ -50,22 +50,22 @@ function generateStats(idA,idB,data){
     for(i = 0; i < tOps; i++) {
         numEmbark    = parseInt(data[i]['sTotal']);
         numDisembark = parseInt(data[i]['disTotal']);
+        numDead   = parseInt(data[i]['dTotal']);
 
         if (!isNaN(numEmbark)) {tEmbark += numEmbark;};
         if (!isNaN(numDisembark)) {tDisembark += numDisembark;};
-
-        numMen    = parseInt(data[i]['sMen']);
-        numWomen  = parseInt(data[i]['sWomen']);
-        numChild  = parseInt(data[i]['sChildren']);
-        numDead   = parseInt(data[i]['dTotal']);
-
-        if (!isNaN(numMen))   {tMen   += numMen;};
-        if (!isNaN(numWomen)) {tWomen += numWomen;};
-        if (!isNaN(numChild)) {tChild += numChild;};
         if (!isNaN(numDead))  {tDead  += numDead;};
 
         if (data[i]['opType'] == "Rescue") {
           tRescue += 1;
+          numMen    = parseInt(data[i]['sMen']);
+          numWomen  = parseInt(data[i]['sWomen']);
+          numChild  = parseInt(data[i]['sChildren']);
+
+          if (!isNaN(numMen))   {tMen   += numMen;};
+          if (!isNaN(numWomen)) {tWomen += numWomen;};
+          if (!isNaN(numChild)) {tChild += numChild;};
+
           pplRescued += parseInt(data[i]['sTotal']);
         } else if (data[i]['opType'] == "Disembarkment") {
           tDisembark += 1;
@@ -79,6 +79,9 @@ function generateStats(idA,idB,data){
         }
 
     }
+
+    var diff = tEmbark - pplTransIn;
+        console.log(diff);
 
         console.log("Total Embarked: " + tEmbark);
         console.log("Total Disembarked: " + tDisembark);
