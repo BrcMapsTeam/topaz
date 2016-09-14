@@ -1,4 +1,4 @@
-# topaz
-Beta site for Topaz Responder reporting and rescue profiles.
+# topaz_responder
+Site for Red Cross Mediterranean search and rescue operation. Topaz Responder reporting and rescue information.
 
-http://ryales.github.io/topaz
+http://brcmapsteam.github.io/topaz_responder
