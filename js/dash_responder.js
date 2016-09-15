@@ -69,7 +69,7 @@ function generateStats(idA,idB,data){
           pplRescued += parseInt(data[i]['sTotal']);
         } else if (data[i]['opType'] == "Disembarkment") {
           tDisembark += 1;
-          pplDisembark += parseInt(data[i]['disTotal']); 
+          pplDisembark += parseInt(data[i]['disTotal']);
         } else if (data[i]['opType'] == "Transfer In") {
           tTransIn += 1;
           pplTransIn += parseInt(data[i]['sTotal']);
@@ -102,7 +102,7 @@ function generateStats(idA,idB,data){
       if (data[i]['opType'] == "Rescue") {
         tRescueOps += 1;
       } else if (data[i]['opType'] == "Disembarkment") {
-        tDisembarkOps += 1;     
+        tDisembarkOps += 1;
       } else if (data[i]['opType'] == "Transfer In") {
         tTransInOps += 1;
       } else if (data[i]['opType'] == "Transfer Out") {
@@ -110,14 +110,25 @@ function generateStats(idA,idB,data){
       }
     }
 
+    var pplCaredFor = pplRescued + pplTransIn + tDead;
+
+    $('#rescueTotalStat').html(pplRescued);
+    $('#disembarkTotalStat').html(pplDisembark);
+    $('#transInTotalStat').html(pplTransIn);
+    $('#transOutTotalStat').html(pplTransOut);
+    $('#operationsTotalStat').html(tOps);
+    $('#deceasedTotalStat').html(tDead);
+
     console.log(tOps,tMen,tWomen,tChild);
     console.log(tRescueOps,tDisembarkOps,tTransInOps,tTransOutOps);
 
 
-      var htmlA = '<h3>STATISTICS</h3>';
-      htmlA = htmlA + "<p>Rescues: <span class='figure'>" + tRescueOps + '</span><br/>';
-      htmlA = htmlA + "Bodies Recovered: <span class='figure'>" + tDead + "</span></br>";
-      htmlA = htmlA + "People Rescued: <span class='figure'>" + pplRescued + '</span><p/>';
+      var htmlA = '<h3>KEY STATISTICS</h3>';
+          htmlA = htmlA + "<h4>People Cared For: " + pplCaredFor + "</h4>";
+
+      //htmlA = htmlA + "<p>Rescues: <span class='figure'>" + tRescueOps + '</span><br/>';
+      //htmlA = htmlA + "Bodies Recovered: <span class='figure'>" + tDead + "</span></br>";
+      //htmlA = htmlA + "People Rescued: <span class='figure'>" + pplRescued + '</span><p/>';
 
       var htmlB = "<img alt='Rescue Symbol' title='People Rescued from the Sea' class='icon' src='img/rescue_black.svg'>";
       htmlB = htmlB + "<span class='figure-padding'>" + pplRescued + "</span><br/>";
@@ -137,11 +148,9 @@ function generateStats(idA,idB,data){
       htmlB = htmlB + "</div></div><div class='col-md-3 col-sm-6'>";
        </br>" + tTransIn;
        </br>" + tTransOut;*/
-      
+
 
       $(idA).html(htmlA);
-      $('#embark_stats').html(htmlB);
-      $('#disembark_stats').html(htmlC);
       generatePieCharts(tMen,tWomen,tChild,tDead,pplRescued,pplDisembark,pplTransOut,pplTransIn);
 }
 
@@ -213,7 +222,7 @@ function outputMedia(media) {
     if (media[i]['Category'] == "Video") {
       videoArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");
     } else if (media[i]['Category'] == "Story") {
-      storyArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");     
+      storyArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");
     } else if (media[i]['Category'] == "Photos") {
       photoArray.push("<li class=list-group-item><a href=" + media[i]['URL'] + ">" + media[i]['Title'] + "</a></li> ");
     }
@@ -230,7 +239,7 @@ function outputMedia(media) {
   }
   for ( k = 0; k < 5; k++ ) {
     if (k > photoArray.length - 1) { break; }
-    o3 += photoArray[k];   
+    o3 += photoArray[k];
   }
 
   var html1 = "";
@@ -248,6 +257,36 @@ function outputMedia(media) {
 }
 
 function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
+  var eng = document.getElementById("engChart");
+  console.log(eng);
+  var engData = {
+    labels: ["Rescues","Transfers In","Deceased"],
+    datasets: [
+      {
+        data: [pr,pi,td],
+        backgroundColor: [
+              "#CD0000",
+              "#EE3B3B",
+              "#F08080"
+          ],
+          hoverBackgroundColor: [
+              "#CD0000",
+              "#EE3B3B",
+              "#F08080"
+          ]
+        }]
+  };
+
+  engChart = new Chart(eng,{
+    type: 'pie',
+    data: engData,
+    options: {
+      legend: {
+        display: false
+      }
+    }
+  });
+
   var mwc = document.getElementById("mwcChart");
   //console.log(mwc);
   var mwcData = {
@@ -278,6 +317,8 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
       }
     }
   });
+
+
 
   var ops = document.getElementById("opsChart");
   //console.log(mwc);

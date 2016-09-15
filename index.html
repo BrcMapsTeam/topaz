@@ -58,17 +58,40 @@
           <div class="col-md-3 col-sm-4 col-xs-4">
             <div class="row">
               <div id="tot_stats"></div>
-              <canvas id="mwcChart" width="200" height="200"></canvas>
+              <canvas id="engChart" width="200" height="200"></canvas>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6">
+                <img width="35" height="35" alt="Rescue Symbol" title="People Rescued" src="img/icons/rescue_red.svg">
+                <span class="stats" id="rescueTotalStat"></span>
               </div>
-              <div class="row">
-                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12" id="stats">
-                  <div id="embark_stats"></div>
+              <div class="col-sm-6">
+                <img width="35" height="35" alt="Disembark Symbol" title="People Disembarked" src="img/icons/disembark_red.svg">
+                <span class="stats" id="disembarkTotalStat"></span>
               </div>
-              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                  <div id="disembark_stats"></div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <img width="35" height="35" alt="Transferred In Symbol" title="People Transferred to the Responder" src="img/icons/trans_in_red.svg">
+                <span class="stats" id="transInTotalStat"></span>
               </div>
-              <!--<canvas id="opsChart" width="200" height="200"></canvas>-->
+              <div class="col-sm-6">
+                <img width="35" height="35" alt="Transferred Out Symbol" title="People Transferred from the Responder" src="img/icons/trans_out_red.svg">
+                <span class="stats" id="transOutTotalStat"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <img width="35" height="35" alt="Deceased Symbol" title="Bodies Recovered" src="img/icons/deceased_red.svg">
+                <span class="stats" id="deceasedTotalStat"></span>
+              </div>
+              <div class="col-sm-6">
+                <img width="35" height="35" alt="Operations Symbol" title="Number of Operations" src="img/icons/operations_red.svg">
+                <span class="stats" id="operationsTotalStat"></span>
+              </div>
             </div> <!-- stats row -->
+
             <div class="row">
               <h3>SOCIAL MEDIA</h3>
                 <div class="col-md-4 col-sm-4">
@@ -80,8 +103,8 @@
                 <div class="col-md-4 col-sm-4">
                   <a href="https://medium.com/@IFRC"><img class="img-responsive img-center" title="IFRC Medium Channel" alt="Medium Logo" src="img/medium.jpg" height="45" width="45" /></a>
                 </div> <!-- Medium -->
-              </div> <!-- social media row -->
-            </div> <!-- middle column -->
+            </div> <!-- social media row -->
+          </div> <!-- middle column -->
 
             <div class="col-md-1 col-sm-1 col-xs-1"></div>
 
@@ -164,14 +187,17 @@
     </main> <!-- main -->
 
   <footer class="footer container">
-    <p>The Red Cross has launched its first search and rescue ship in a bid to save the lives of people crossing the Mediterranean in search of refuge and safety in Europe. The <a href="http://www.cri.it/home">Italian Red Cross</a>, with support from the IFRC, is partnering with independent charity <a href="https://www.moas.eu/">Migrant Offshore Aid Station (MOAS)</a> in a joint life-saving mission on board the "Responder" rescue ship.</p>
-    <!--<nav class="navbar">
-    <li>
-    <a href="https://twitter.com/RosemarieNorth"><img class="img-responsive img-center" title="IFRC Communications Delegate on board the Responder" alt="Twitter Logo" src="img/Twitter_Logo_White_On_Blue.png" height="45" width="45" /></a>
-    <a href="https://www.youtube.com/channel/UCZ8xf9ZrTOv7SeYK7U5eKVg"><img class="img-responsive img-center" style="margin-top:5px" alt="YouTube Logo" title="IFRC YouTube Channel" src="img/YouTube-icon-full_color.png" height="45" width="45" /></a>
-    <a href="https://medium.com/@IFRC"><img class="img-responsive img-center" title="IFRC Medium Channel" alt="Medium Logo" src="img/medium.jpg" height="45" width="45" /></a>
-    </li>
-    </nav>-->
+    <div>
+    The Red Cross has launched its first search and rescue ship in a bid to save the lives of people crossing the Mediterranean in search of refuge and safety in Europe. The <a href="http://www.cri.it/home">Italian Red Cross</a>, with support from the IFRC, is partnering with independent charity <a href="https://www.moas.eu/">Migrant Offshore Aid Station (MOAS)</a> in a joint life-saving mission on board the "Responder" rescue ship.
+    </div>
+    <!--<ul class="nav navbar-nav navbar-right">
+      <li>
+        <a href="https://www.youtube.com/channel/UCZ8xf9ZrTOv7SeYK7U5eKVg"><img class="img-responsive img-center" style="margin-top:5px" alt="YouTube Logo" title="IFRC YouTube Channel" src="img/YouTube-icon-full_color.png" height="45" width="45" /></a>
+      </li>
+      <li>
+        <a href="https://medium.com/@IFRC"><img class="img-responsive img-center" title="IFRC Medium Channel" alt="Medium Logo" src="img/medium.jpg" height="45" width="45" /></a>
+      </li>
+    </ul>-->
   </footer>
 
   <!-- Javascript Libraries -->
