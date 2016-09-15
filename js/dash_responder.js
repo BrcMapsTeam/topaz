@@ -58,13 +58,13 @@ function generateStats(idA,idB,data){
 
         if (data[i]['opType'] == "Rescue") {
           tRescue += 1;
-          numMen    = parseInt(data[i]['sMen']);
-          numWomen  = parseInt(data[i]['sWomen']);
-          numChild  = parseInt(data[i]['sChildren']);
+          numRMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
+          numRWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
+          numRChild  = parseInt(data[i]['sChildren']) + parseInt(data[i]['dChildren']);
 
-          if (!isNaN(numMen))   {tMen   += numMen;};
-          if (!isNaN(numWomen)) {tWomen += numWomen;};
-          if (!isNaN(numChild)) {tChild += numChild;};
+          if (!isNaN(numRMen))   {tMen   += numRMen;};
+          if (!isNaN(numRWomen)) {tWomen += numRWomen;};
+          if (!isNaN(numRChild)) {tChild += numRChild;};
 
           pplRescued += parseInt(data[i]['sTotal']);
         } else if (data[i]['opType'] == "Disembarkment") {
@@ -72,6 +72,15 @@ function generateStats(idA,idB,data){
           pplDisembark += parseInt(data[i]['disTotal']);
         } else if (data[i]['opType'] == "Transfer In") {
           tTransIn += 1;
+
+          numTiMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
+          numTiWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
+          numTiChild  = parseInt(data[i]['sChildren'])  + parseInt(data[i]['dChildren']);
+
+          if (!isNaN(numTiMen))   {tMen   += numTiMen;};
+          if (!isNaN(numTiWomen)) {tWomen += numTiWomen;};
+          if (!isNaN(numTiChild)) {tChild += numTiChild;};
+
           pplTransIn += parseInt(data[i]['sTotal']);
         } else if (data[i]['opType'] == "Transfer Out") {
           tTransOut += 1;
@@ -81,7 +90,7 @@ function generateStats(idA,idB,data){
     }
 
     var diff = tEmbark - pplTransIn;
-        console.log(diff);
+
 
         console.log("Total Embarked: " + tEmbark);
         console.log("Total Disembarked: " + tDisembark);
@@ -116,7 +125,7 @@ function generateStats(idA,idB,data){
     $('#disembarkTotalStat').html(pplDisembark);
     $('#transInTotalStat').html(pplTransIn);
     $('#transOutTotalStat').html(pplTransOut);
-    $('#operationsTotalStat').html(tOps);
+    $('#operationsTotalStat').html(tRescueOps);
     $('#deceasedTotalStat').html(tDead);
 
     console.log(tOps,tMen,tWomen,tChild);
@@ -257,8 +266,37 @@ function outputMedia(media) {
 }
 
 function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
+  var mwc = document.getElementById("mwcChart");
+  //console.log(mwc);
+  var mwcData = {
+    labels: ["Men","Women","Children"],
+    datasets: [
+      {
+        data: [tm,tw,tc],
+        backgroundColor: [
+              "#CD0000",
+              "#EE3B3B",
+              "#F08080"
+          ],
+          hoverBackgroundColor: [
+              "#CD0000",
+              "#EE3B3B",
+              "#F08080"
+          ]
+        }]
+  };
+
+  mwcChart = new Chart(mwc,{
+    type: 'pie',
+    data: mwcData,
+    options: {
+      legend: {
+        display: false
+      }
+    }
+  });
+
   var eng = document.getElementById("engChart");
-  console.log(eng);
   var engData = {
     labels: ["Rescues","Transfers In","Deceased"],
     datasets: [
@@ -287,36 +325,7 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
     }
   });
 
-  var mwc = document.getElementById("mwcChart");
-  //console.log(mwc);
-  var mwcData = {
-    labels: ["Men Saved","Women Saved","Children Saved"],
-    datasets: [
-      {
-        data: [tm,tw,tc],
-        backgroundColor: [
-              "#CD0000",
-              "#EE3B3B",
-              "#F08080"
-          ],
-          hoverBackgroundColor: [
-              "#CD0000",
-              "#EE3B3B",
-              "#F08080"
-          ]
-        }]
-  };
-  var sum = tm+tw+tc+td;
 
-  mwcChart = new Chart(mwc,{
-    type: 'pie',
-    data: mwcData,
-    options: {
-      legend: {
-        display: false
-      }
-    }
-  });
 
 
 
