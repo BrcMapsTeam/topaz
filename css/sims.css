@@ -1,20 +1,7 @@
 /* Template style for SIMS products */
 
-/* Base body style */
-body {
-  font-family: 'Gotham-Light', sans-serif;
-  font-weight: 350;
-}
-
 /* Red Headings */
-h1,h2 { color:#B71C1C; font-weight: bold; }
-
-/* Page Title Heading */
-.navbar-header > h1 { margin-top:10px; }
-
-/*.nav > li > a > img {
-  max-width: 50px;
-}*/
+h1,h2 { color:#B71C1C; }
 
 /* H2 Headings */
 h2 { font-size: 1.5em; margin-top:0px;}
@@ -28,14 +15,7 @@ h4 { text-align: center; }
 a       { color:#B71C1C; }
 a:hover { color:#B71C1C; }
 
-/* Push main content below navbar */
-main { margin-top: 75px; }
-
-/* Paragraph */
-p { font-size: .9em; }
-
-/* Container width */
-.container { width: 97%; margin-left: auto; margin-right: auto;}
+.container-fluid { margin-left: 1%; }
 
 /* Buttons */
 .btn-sm {
@@ -54,15 +34,6 @@ p { font-size: .9em; }
 
 li { list-style-type: none; }
 
-/* Navbar button style */
-.navbar-default .navbar-nav > li > a.btn-sm { margin-top: 15px; color: #ffffff; padding: 5px; min-width: 100%; }
-
-/* Navbar button interaction style */
-.navbar-default .navbar-nav > li > a.btn-sm:focus,
-.navbar-default .navbar-nav > li > a.btn-sm:hover { background-color: #e60000; color: ##B71C1C; }
-
-footer.container > div { margin-top: 12px; }
-
 .figure { float: right; font-weight: bold; color: #B71C1C; }
 
 .key-figure { font-weight: bold; color: #B71C1C; }
@@ -73,40 +44,16 @@ footer.container > div { margin-top: 12px; }
 
 .img-center { margin:0 auto; border-radius:10px; }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
-}
 
-#explainer {
-  max-width: 60%;
-}
-
-#stats1 {
-  padding:0;
-}
+#stats1 { padding:0; }
 
 
-.icon {
-  height: 40px;
-}
+.icon { height: 40px; }
 
 /* Breakpoints */
 /*@media (min-width: 1091px){ .stats { float: none; padding-left: 7px; } }*/
-@media (min-width: 963px) and (max-width: 1090px) { main { margin-top: 80px; } .list-group-item { font-size: .85em; } .footer { font-size: .9em; } }
-@media (min-width: 760px) and (max-width: 962px)  { main { margin-top: 130px; } .list-group-item { font-size: .85em; height: 80px; } }
-@media (min-width: 615px) and (max-width: 759px)  { main { margin-top: 70px; } .img-center { margin-top: 10px; margin-bottom: 10px;} .list-group-item { font-size: .85em; } .footer { font-size: .85em; height: 80px; } }
-@media (min-width: 400px) and (max-width: 614px)  { main { margin-top: 110px; } .img-center { margin-top: 10px; margin-bottom: 10px;} .list-group-item { font-size: .85em; } .footer { font-size: .8em; height: 80px; } }
-@media (max-width: 399px)                         { main { margin-top: 150px; } .list-group-item { font-size: .8em; } .footer { font-size: .8em; height: 110px; } }
+@media (min-width: 963px) and (max-width: 1090px) { .list-group-item { font-size: .85em; } }
+@media (min-width: 760px) and (max-width: 962px)  { .list-group-item { font-size: .85em; } }
+@media (min-width: 615px) and (max-width: 759px)  { .img-center { margin-top: 10px; margin-bottom: 10px;} .list-group-item { font-size: .85em; } }
+@media (min-width: 400px) and (max-width: 614px)  { .img-center { margin-top: 10px; margin-bottom: 10px;} .list-group-item { font-size: .85em; } }
+@media (max-width: 399px)                         { .list-group-item { font-size: .8em; } }
