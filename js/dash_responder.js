@@ -406,15 +406,24 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     var data  = hxlProxyToJSON(dataArgs[0],true);
         media = hxlProxyToJSON(mediaArgs[0],true);
 
-    var dateFormat = d3.time.format("%d/%m/%Y");
+    var dateFormat = d3.time.format("%m/%d/%Y");
 
     data.forEach(function(d){
         d['Date'] = dateFormat.parse(d['date']);
     });
 
     media.forEach(function(d){
-        d['DATE'] = dateFormat.parse(d['DATE']);
-    })
+        d['Date'] = dateFormat.parse(d['DATE']);
+    });
+
+    function sortByDateAscending(a,b) {
+        //return a["#date"] - b["#date"];
+        return a["Date"]>b["Date"] ? -1 : a["Date"]<b["Date"] ? 1 : 0;
+    }
+
+    data = data.sort(sortByDateAscending);
+
+    media = media.sort(sortByDateAscending);
 
     console.log("Data: ", data);
     console.log("Media: ", media);
