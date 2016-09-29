@@ -48,6 +48,7 @@ function generateStats(idA,idB,data){
         pplDisembark = 0;
 
     for(i = 0; i < tOps; i++) {
+      if (data[i]['boat'] == "Responder") {
         numEmbark    = parseInt(data[i]['sTotal']);
         numDisembark = parseInt(data[i]['disTotal']);
         numDead   = parseInt(data[i]['dTotal']);
@@ -88,6 +89,7 @@ function generateStats(idA,idB,data){
         }
 
     }
+  }
 
     var diff = tEmbark - pplTransIn;
 
@@ -164,56 +166,7 @@ function generateStats(idA,idB,data){
 }
 
 function generateCharts(data) {
-    var mwc = dc.pieChart("#mwc_pieChart");
-      //sad = dc.pieChart("#sad_pieChart")
-
-    var cf_topaz = crossfilter(data);
-
-    var all = cf_topaz.groupAll();
-
-    var rescuesByDateDimension  = cf_topaz.dimension(function(d){ return d["date"]; });
-    var rescuesByTotalDimension = cf_topaz.dimension(function(d){ return d["sTotal"]; });
-
-    var totalRescued   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sMen"];});
-    var menGroup   = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sMen"];});
-    var womenGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sWomen"];});
-    var childGroup = rescuesByTotalDimension.group().reduceSum(function(d) {return d["sChildren"];});
-
-    var rescueGroupsByTotal = cf_topaz.groupAll().reduceSum(function(d){ return d["sTotal"]; }).value();
-    var rescueGroupsByMen = cf_topaz.groupAll().reduceSum(function(d){ return d["sMen"]; });
-    var rescueGroupsByWomen = cf_topaz.groupAll().reduceSum(function(d){ return d["sWomen"]; });
-    var rescueGroupsByChild = cf_topaz.groupAll().reduceSum(function(d){ return d["sTotal"] - d["sChildren"]; }).value();
-
-    mwc.width($('#savedtotal').width()).height(250)
-      .dimension(rescuesByTotalDimension)
-      .group(childGroup)
-      .innerRadius(10)
-          //.externalLabels(-20)
-          //.externalRadiusPadding(0)
-      .colors(function(d){ /*console.log(d);*/ return colorScale(d); })
-      .legend(dc.legend().x(5).y(110).itemHeight(13).gap(2))
-      .renderLabel(true)
-      /*.renderlet(function(e){
-              var html = "";
-              e.filters().forEach(function(l){
-                  html += l+", ";
-              });
-              $('#mapfilter').html(html);
-      })*/;
-
-    dc.dataCount('#savedtotal')
-      .dimension(cf_topaz)
-      .group(rescueGroupsByTotal);
-
-    dc.dataCount('#mentotal')
-      .dimension(cf_topaz)
-      .group(rescueGroupsByMen);
-
-    dc.dataCount('#childtotal')
-      .dimension(cf_topaz)
-      .group(rescueGroupsByChild);
-
-      dc.renderAll();
+    
 
 }
 
