@@ -1,3 +1,28 @@
+jQuery(document).ready(function($){
+  $('#responder').show();
+  $("#phoenix").hide();
+  $("#both").hide();
+});
+
+$("#vesselSelection").on("change", function(e) {
+    selection = $("#vesselSelection").val();
+    //console.log("forecast selection = ", selection);
+    switch (selection) {
+      case "responder":  $("#responder").show();
+                  $("#phoenix").hide();
+                  $("#both").hide();
+                  break;
+      case "phoenix": $("#responder").hide();
+                  $("#phoenix").show();
+                  $("#both").hide();
+                  break;
+      case "both": $("#responder").hide();
+                  $("#phoenix").hide();
+                  $("#both").show();
+                  break;   
+    };
+  }); 
+
 function hxlProxyToJSON(input,headers){
   var output = [];
   var keys=[];
@@ -25,10 +50,8 @@ function generateStats(idA,idB,data){
     // Define variables for demographic stats
     var tEmbark    = 0;
         tDisembark = 0;
-
         tTransIn   = 0;
         tTransOut  = 0;
-
         tRescue    = 0;
         tMen       = 0;
         tWomen     = 0;
@@ -36,63 +59,156 @@ function generateStats(idA,idB,data){
         tDead      = 0;
         tOps = data.length;
 
-    // Define variables for operations counts
-    var tRescueOps    = 0;
-        tDisembarkOps = 0;
-        tTransInOps   = 0;
-        tTransOutOps  = 0;
+        // Responder variables
+        rEmbark    = 0;
+        rDisembark = 0;
+        rTransIn   = 0;
+        rTransOut  = 0;
+        rRescue    = 0;
+        rMen       = 0;
+        rWomen     = 0;
+        rChild     = 0;
+        rDead      = 0;
+        rOps       = 0;
 
-    var pplRescued   = 0;
-        pplTransIn   = 0;
-        pplTransOut  = 0;
-        pplDisembark = 0;
+        // Phoenix variables
+        pEmbark    = 0;
+        pDisembark = 0;
+        pTransIn   = 0;
+        pTransOut  = 0;
+        pRescue    = 0;
+        pMen       = 0;
+        pWomen     = 0;
+        pChild     = 0;
+        pDead      = 0;
+        pOps       = 0;
+
+    // Define variables for operations counts
+    var rRescueOps    = 0;
+        rDisembarkOps = 0;
+        rTransInOps   = 0;
+        rTransOutOps  = 0;
+
+        pRescueOps    = 0;
+        pDisembarkOps = 0;
+        pTransInOps   = 0;
+        pTransOutOps  = 0;
+
+    var pplRescuedr   = 0;
+        pplTransInr   = 0;
+        pplTransOutr  = 0;
+        pplDisembarkr = 0;
+
+        pplRescuedp   = 0;
+        pplTransInp   = 0;
+        pplTransOutp  = 0;
+        pplDisembarkp = 0;
 
     for(i = 0; i < tOps; i++) {
+      // Responder Stats
       if (data[i]['boat'] == "Responder") {
         numEmbark    = parseInt(data[i]['sTotal']);
         numDisembark = parseInt(data[i]['disTotal']);
         numDead   = parseInt(data[i]['dTotal']);
 
-        if (!isNaN(numEmbark)) {tEmbark += numEmbark;};
-        if (!isNaN(numDisembark)) {tDisembark += numDisembark;};
-        if (!isNaN(numDead))  {tDead  += numDead;};
+        if (!isNaN(numEmbark)) {rEmbark += numEmbark;};
+        if (!isNaN(numDisembark)) {rDisembark += numDisembark;};
+        if (!isNaN(numDead))  {rDead  += numDead;};
 
         if (data[i]['opType'] == "Rescue") {
-          tRescue += 1;
+          rRescueOps += 1;
           numRMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
           numRWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
           numRChild  = parseInt(data[i]['sChildren']) + parseInt(data[i]['dChildren']);
 
-          if (!isNaN(numRMen))   {tMen   += numRMen;};
-          if (!isNaN(numRWomen)) {tWomen += numRWomen;};
-          if (!isNaN(numRChild)) {tChild += numRChild;};
+          if (!isNaN(numRMen))   {rMen   += numRMen;};
+          if (!isNaN(numRWomen)) {rWomen += numRWomen;};
+          if (!isNaN(numRChild)) {rChild += numRChild;};
 
-          pplRescued += parseInt(data[i]['sTotal']);
+          pplRescuedr += parseInt(data[i]['sTotal']);
         } else if (data[i]['opType'] == "Disembarkment") {
-          tDisembark += 1;
-          pplDisembark += parseInt(data[i]['disTotal']);
+          rDisembarkOps += 1;
+          pplDisembarkr += parseInt(data[i]['disTotal']);
         } else if (data[i]['opType'] == "Transfer In") {
-          tTransIn += 1;
+          rTransInOps += 1;
 
           numTiMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
           numTiWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
           numTiChild  = parseInt(data[i]['sChildren'])  + parseInt(data[i]['dChildren']);
 
-          if (!isNaN(numTiMen))   {tMen   += numTiMen;};
-          if (!isNaN(numTiWomen)) {tWomen += numTiWomen;};
-          if (!isNaN(numTiChild)) {tChild += numTiChild;};
+          if (!isNaN(numTiMen))   {rMen   += numTiMen;};
+          if (!isNaN(numTiWomen)) {rWomen += numTiWomen;};
+          if (!isNaN(numTiChild)) {rChild += numTiChild;};
 
-          pplTransIn += parseInt(data[i]['sTotal']);
+          pplTransInr += parseInt(data[i]['sTotal']);
         } else if (data[i]['opType'] == "Transfer Out") {
-          tTransOut += 1;
-          pplTransOut += parseInt(data[i]['disTotal']);
+          rTransOutOps += 1;
+          pplTransOutr += parseInt(data[i]['disTotal']);
         }
+      }
 
-    }
+      if (data[i]['boat'] == "Phoenix") {
+        numEmbark    = parseInt(data[i]['sTotal']);
+        numDisembark = parseInt(data[i]['disTotal']);
+        numDead      = parseInt(data[i]['dTotal']);
+
+        if (!isNaN(numEmbark)) {pEmbark += numEmbark;};
+        if (!isNaN(numDisembark)) {pDisembark += numDisembark;};
+        if (!isNaN(numDead)) {pDead += numDead;};
+
+        if (data[i]['opType'] == "Rescue") {
+          pRescueOps += 1;
+          numRMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
+          numRWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
+          numRChild  = parseInt(data[i]['sChildren']) + parseInt(data[i]['dChildren']);
+
+          if (!isNaN(numRMen))   {pMen   += numRMen;};
+          if (!isNaN(numRWomen)) {pWomen += numRWomen;};
+          if (!isNaN(numRChild)) {pChild += numRChild;};
+
+          pplRescuedp += parseInt(data[i]['sTotal']);
+        } else if (data[i]['opType'] == "Disembarkment") {
+          pDisembarkOps += 1;
+          pplDisembarkp += parseInt(data[i]['disTotal']);
+        } else if (data[i]['opType'] == "Transfer In") {
+          pTransInOps += 1;
+
+          numTiMen    = parseInt(data[i]['sMen']) + parseInt(data[i]['dMen']);
+          numTiWomen  = parseInt(data[i]['sWomen']) + parseInt(data[i]['dWomen']);
+          numTiChild  = parseInt(data[i]['sChildren'])  + parseInt(data[i]['dChildren']);
+
+          if (!isNaN(numTiMen))   {pMen   += numTiMen;};
+          if (!isNaN(numTiWomen)) {pWomen += numTiWomen;};
+          if (!isNaN(numTiChild)) {pChild += numTiChild;};
+
+          pplTransInp += parseInt(data[i]['sTotal']);
+        } else if (data[i]['opType'] == "Transfer Out") {
+          pTransOutOps += 1;
+          pplTransOutp += parseInt(data[i]['disTotal']);
+        }
+      }
   }
+
+    tRescueOps    = rRescueOps + pRescueOps;
+    tDisembarkOps = rDisembarkOps + pDisembarkOps;
+    tTransInOps   = rTransInOps + pTransInOps;
+    tTransOutOps  = rTransOutOps + pTransOutOps;
+
+    tMen       = rMen + pMen;
+    tWomen     = rWomen + pWomen;
+    tChild     = rChild + pChild;
+    tDead      = rDead + pDead;
+
+    pplRescued   = pplRescuedr + pplRescuedp;
+    pplTransIn   = pplTransInr + pplTransInp;
+    pplTransOut  = pplTransOutr + pplTransOutp;
+    pplDisembark = pplDisembarkr + pplDisembarkp;
 
     var diff = tEmbark - pplTransIn;
 
+    /*    console.log("Responder Ops: " + rRescueOps);
+        console.log("Phoenix Ops: " + pRescueOps);
+        console.log("Phoenix Men: " + pMen);
 
         console.log("Total Embarked: " + tEmbark);
         console.log("Total Disembarked: " + tDisembark);
@@ -105,64 +221,34 @@ function generateStats(idA,idB,data){
         console.log("Total Transferred In: " + pplTransIn);
         console.log("Total Transferred Out: " + pplTransOut);
         console.log("Total Disembarked: " + pplDisembark);
-
-
-
-    // Push list items to arrays by category
-    for (i = 0; i < tOps; i++) {
-      if (data[i]['opType'] == "Rescue") {
-        tRescueOps += 1;
-      } else if (data[i]['opType'] == "Disembarkment") {
-        tDisembarkOps += 1;
-      } else if (data[i]['opType'] == "Transfer In") {
-        tTransInOps += 1;
-      } else if (data[i]['opType'] == "Transfer Out") {
-        tTransOutOps += 1;
-      }
-    }
+    */
 
     var pplCaredFor = pplRescued + pplTransIn + tDead;
+        pplCaredForR = pplRescuedr + pplTransInr + rDead;
+        pplCaredForP = pplRescuedp + pplTransInp + pDead;
 
-    $('#rescueTotalStat').html(pplRescued);
-    $('#disembarkTotalStat').html(pplDisembark);
-    $('#transInTotalStat').html(pplTransIn);
-    $('#transOutTotalStat').html(pplTransOut);
-    $('#operationsTotalStat').html(tRescueOps);
-    $('#deceasedTotalStat').html(tDead);
+    $("#responder").html("");
+    $("#phoenix").html("");
+    $("#both").html("");
 
-    console.log(tOps,tMen,tWomen,tChild);
-    console.log(tRescueOps,tDisembarkOps,tTransInOps,tTransOutOps);
+    $("#responder").append("<h4>People Cared For: " + pplCaredForR + "</h4>" +
+                           "<canvas id='rChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescuedr + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembarkr + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' title='People Transferred to the Responder' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransInr + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' title='People Transferred from the Responder' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOutr + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' title='Deceased People' src='img/icons/deceased_red.svg'><span class='stats'>" + rDead + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + rRescueOps + "</span></div></div> <!-- stats row -->");
 
+    $("#phoenix").append("<h4>People Cared For: " + pplCaredForP + "</h4>" +
+                           "<canvas id='pChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescuedp + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembarkp + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' title='People Transferred to the Responder' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransInp + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' title='People Transferred from the Responder' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOutp + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' title='Deceased People' src='img/icons/deceased_red.svg'><span class='stats'>" + pDead + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + pRescueOps + "</span></div></div> <!-- stats row -->");
 
-      var htmlA = '<h3>KEY STATISTICS</h3>';
-          htmlA = htmlA + "<h4>People Cared For: " + pplCaredFor + "</h4>";
+    $("#both").append("<h4>People Cared For: " + pplCaredFor + "</h4>" +
+                           "<canvas id='tChart' width=200 height=200></canvas><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Rescue Symbol' title='People Rescued' src='img/icons/rescue_red.svg'><span class='stats'>" + pplRescued + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Disembark Symbol' title='People Disembarked to Land' src='img/icons/disembark_red.svg'><span class='stats'>" + pplDisembark + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Transferred In Symbol' title='People Transferred to the Responder' src='img/icons/trans_in_red.svg'><span class='stats'>" + pplTransIn + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Transferred Out Symbol' title='People Transferred from the Responder' src='img/icons/trans_out_red.svg'><span class='stats'>" + pplTransOut + "</span></div></div><div class='row'><div class='col-sm-6'><img width='35' height='35' alt='Deceased Symbol' title='Deceased People' src='img/icons/deceased_red.svg'><span class='stats'>" + tDead + "</span></div><div class='col-sm-6'><img width='35' height='35' alt='Operations Symbol' title='Number of Rescue Operations' src='img/icons/operations_red.svg'><span class='stats'>" + tRescueOps + "</span></div></div> <!-- stats row -->");
 
-      //htmlA = htmlA + "<p>Rescues: <span class='figure'>" + tRescueOps + '</span><br/>';
-      //htmlA = htmlA + "Bodies Recovered: <span class='figure'>" + tDead + "</span></br>";
-      //htmlA = htmlA + "People Rescued: <span class='figure'>" + pplRescued + '</span><p/>';
-
-      var htmlB = "<img alt='Rescue Symbol' title='People Rescued from the Sea' class='icon' src='img/rescue_black.svg'>";
-      htmlB = htmlB + "<span class='figure-padding'>" + pplRescued + "</span><br/>";
-      htmlB = htmlB + "<img alt='Transferred In Symbol' title='People Taken Onboard from Other Rescue Vessels' class='icon' src='img/transfer_in_black.svg'>";
-      htmlB = htmlB + "<span class='figure-padding'>" + pplTransIn + "</span>";
+    
 
 
-      var htmlC = "<img alt='Disembark Symbol' title='People Disembarked on Land' class='icon' src='img/disembark_black.svg'>";
-      htmlC = htmlC + "<span class='figure-padding'>" + pplDisembark + "</span><br/>";
-      htmlC = htmlC + "<img  alt='Transferred Out Symbol' title='People Transferred to Other Rescue Vessels' class='icon' src='img/transfer_out_black.svg'>";
-      htmlC = htmlC + "<span class='figure-padding'>" + pplTransOut + "</span>";
+      //var htmlA = '<h3>KEY STATISTICS</h3>';
+      
+      //htmlA = '<h4>People Cared For: ' + pplCaredForR + '</h4>";
 
-      /*
-
-       + tRescues;
-       + tDisembark;
-      htmlB = htmlB + "</div></div><div class='col-md-3 col-sm-6'>";
-       </br>" + tTransIn;
-       </br>" + tTransOut;*/
-
-
-      $(idA).html(htmlA);
-      generatePieCharts(tMen,tWomen,tChild,tDead,pplRescued,pplDisembark,pplTransOut,pplTransIn);
+      //$(idA).html(htmlA);
+      generatePieCharts(tMen,tWomen,tChild,tDead,pMen,pWomen,pChild,pDead,rMen,rWomen,rChild,rDead);
 }
 
 function generateCharts(data) {
@@ -218,10 +304,9 @@ function outputMedia(media) {
   $(photoOutput).html(html3);
 }
 
-function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
-  var mwc = document.getElementById("mwcChart");
-  //console.log(mwc);
-  var mwcData = {
+function generatePieCharts(tm,tw,tc,td,pm,pw,pc,pd,rm,rw,rc,rd) {
+  var tChart = document.getElementById("tChart");
+  var tData = {
     labels: ["Men","Women","Children"],
     datasets: [
       {
@@ -239,9 +324,9 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
         }]
   };
 
-  mwcChart = new Chart(mwc,{
+  tChart = new Chart(tChart,{
     type: 'pie',
-    data: mwcData,
+    data: tData,
     options: {
       legend: {
         display: false
@@ -249,12 +334,12 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
     }
   });
 
-  var eng = document.getElementById("engChart");
-  var engData = {
-    labels: ["Rescues","Transfers In","Deceased"],
+  var rChart = document.getElementById("rChart");
+  var rData = {
+    labels: ["Men","Women","Children"],
     datasets: [
       {
-        data: [pr,pi,td],
+        data: [rm,rw,rc],
         backgroundColor: [
               "#CD0000",
               "#EE3B3B",
@@ -268,9 +353,9 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
         }]
   };
 
-  engChart = new Chart(eng,{
+  rChart = new Chart(rChart,{
     type: 'pie',
-    data: engData,
+    data: rData,
     options: {
       legend: {
         display: false
@@ -278,35 +363,28 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
     }
   });
 
-
-
-
-
-  var ops = document.getElementById("opsChart");
-  //console.log(mwc);
-  var opsData = {
-    labels: ["Rescued from the Sea","Disembarked on Land","Transferred to Other Rescue Vessel","Transferred onto the Responder Vessel"],
+  var pChart = document.getElementById("pChart");
+  var pData = {
+    labels: ["Men","Women","Children"],
     datasets: [
       {
-        data: [pr,pd,po,pi],
+        data: [pm,pw,pc],
         backgroundColor: [
               "#CD0000",
               "#EE3B3B",
-              "#F08080",
-              "#F07432"
+              "#F08080"
           ],
           hoverBackgroundColor: [
               "#CD0000",
               "#EE3B3B",
-              "#F08080",
-              "#F07432"
+              "#F08080"
           ]
         }]
   };
 
-  mwcChart = new Chart(ops,{
+  pChart = new Chart(pChart,{
     type: 'pie',
-    data: opsData,
+    data: pData,
     options: {
       legend: {
         display: false
@@ -314,33 +392,6 @@ function generatePieCharts(tm,tw,tc,td,pr,pd,po,pi) {
     }
   });
 
-  var sad = document.getElementById("sadChart");
-  //console.log(mwc);
-  var sadData = {
-    labels: ["Total Rescued","Bodies Recovered"],
-    datasets: [
-      {
-        data: [sum,td],
-        backgroundColor: [
-              "#CD0000",
-              "#EE3B3B"
-          ],
-          hoverBackgroundColor: [
-              "#CD0000",
-              "#EE3B3B"
-          ]
-        }]
-  };
-
-  sadChart = new Chart(sad,{
-    type: 'pie',
-    data: sadData,
-    options: {
-      legend: {
-        display: false
-      }
-    }
-  });
 }
 
 var dataCall = $.ajax({
@@ -359,7 +410,7 @@ $.when(dataCall,mediaCall).then(function(dataArgs,mediaArgs){
     var data  = hxlProxyToJSON(dataArgs[0],true);
         media = hxlProxyToJSON(mediaArgs[0],true);
 
-    var dateFormat = d3.time.format("%m/%d/%Y");
+    var dateFormat = d3.time.format("%d/%m/%Y");
 
     data.forEach(function(d){
         d['Date'] = dateFormat.parse(d['date']);

@@ -29,6 +29,10 @@ a:hover { color:#B71C1C; }
   max-width: 60%;
 }
 
+.page-header {
+	margin-top: 20px;
+}
+
 .btn-sm:focus,
 .btn-sm:hover { background-color: #e60000; color: ##B71C1C; }
 
@@ -49,6 +53,24 @@ li { list-style-type: none; }
 
 
 .icon { height: 40px; }
+
+body > .container-fluid {
+  padding: 60px 15px 0;
+}
+.container-fluid .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.footerText {
+  font-size: .8em;
+}
+
+@media (max-width: 720px) { body { margin-bottom: 90px; } }
 
 /* Breakpoints */
 /*@media (min-width: 1091px){ .stats { float: none; padding-left: 7px; } }*/
